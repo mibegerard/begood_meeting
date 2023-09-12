@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import * as CSVParser from 'csv-parser';
+import * as FileSaver from 'file-saver';
+import { CSVImportComponent } from '../CSVimport/csvimport/csvimport.component';
+import { EventsInterface } from '../interfaces/events-interface';
+import { CSVImportService } from '../services/csvimport-service';
 import { EventsService } from '../services/events.service';
+
 
 @Component({
   selector: 'app-events',
@@ -23,5 +29,37 @@ export class EventsComponent {
       this.events = res;
     });
   }
+
+  exportToCSV() {
+    const csvData = this.convertToCSV(this.events);
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'events.csv';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
+
+  private convertToCSV(data: EventsInterface[]): string {
+    const delimiter = ';'; // Utilisez le délimiteur approprié (virgule, point-virgule, etc.)
+  
+    // Fonction pour échapper aux guillemets doubles dans les valeurs
+    const escapeDoubleQuotes = (value: string) => {
+      return value.replace(/"/g, '""');
+    };
+  
+    const header = Object.keys(data[0]).join(delimiter); // En-têtes CSV
+  
+    const rows = data.map(event => {
+      const guestNames = event.guests.map(guest => guest.name).join('; '); // Pour séparer les noms des invités par des points-virgules
+      return `"${escapeDoubleQuotes(event.subject)}"${delimiter}"${escapeDoubleQuotes(event.organizer[0].name)} (${escapeDoubleQuotes(event.organizer[0].email)})"${delimiter}"${escapeDoubleQuotes(guestNames)}"${delimiter}"${event.startDateTime}"${delimiter}"${event.endDateTime}"${delimiter}"${escapeDoubleQuotes(event.description)}"${delimiter}"${event.channel}"${delimiter}"${event.location}"${delimiter}"${event.teamsLink}"`;
+    });
+  
+    return `${header}\n${rows.join('\n')}`;
+  }
+  
   
 }

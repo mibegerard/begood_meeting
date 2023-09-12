@@ -1,10 +1,28 @@
+<button (click)="exportToCSV()">Exporter au format CSV</button>
+
+<form (submit)="uploadCSV($event)">
+  <input type="file" accept=".csv" #fileInput />
+  <button type="submit">Importer CSV</button>
+</form>
+
 <table>
-  <thead></thead>
+  <thead>
+    <tr>
+      <td>Evenement</td>
+      <td>Organisateur</td>
+      <td>Invités</td>
+      <td>Date et heure de début</td>
+      <td>Date et heure de fin</td>
+      <td>Description</td>
+      <td>Canal</td>
+      <td>Lieu</td>
+      <td>Lien teams</td>
+    </tr>
+  </thead>
   <tbody>
     <tr *ngFor="let event of events">
       <td>{{ event.subject }}</td>
-      <td>{{ event.organizer[0].name }}</td>
-      <td>{{ event.organizer[0].email }}</td>
+      <td>{{ event.organizer[0].name }} ({{ event.organizer[0].email }})</td>
       <td>
         <ul>
           <li *ngFor="let guest of event.guests">{{ guest.name }}</li>
@@ -15,7 +33,7 @@
       <td>{{ event.description }}</td>
       <td>{{ event.channel }}</td>
       <td>{{ event.location }}</td>
-      <td>{{ event.teamsLink }}</td>
+      <td><a href="{{ event.teamsLink }}" target="_blank">Lien teams</a></td>
     </tr>
   </tbody>
 </table>
