@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+      <th>Evenement</th>
+      <th>Organisateur</th>
+      <th>Invités</th>
+      <th>Date et heure de début</th>
+      <th>Date et heure de fin</th>
+      <th>Description</th>
+      <th>Canal</th>
+      <th>Lieu</th>
+      <th>Lien teams</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of events">
+      <td>{{ event.subject }}</td>
+      <td>{{ event.organizer }}</td>
+      <td>
+        <li *ngFor="let guest of event.guests">{{ guest }}</li>
+      </td>
+      <td>{{ event.startDateTime }}</td>
+      <td>{{ event.endDateTime }}</td>
+      <td>{{ event.description }}</td>
+      <td>{{ event.channel }}</td>
+      <td>{{ event.location }}</td>
+      <td>{{ event.teamsLink }}</td>
+    </tr>
+  </tbody>
+</table>
