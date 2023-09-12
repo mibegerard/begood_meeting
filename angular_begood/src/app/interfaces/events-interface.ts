@@ -1,8 +1,9 @@
 import { GuestsInterface } from "./guests-interface";
+import { OrganizerInterface } from "./organizer-interface";
 
 export interface EventsInterface {
     subject:string;
-    organizer:string;
+    organizer:OrganizerInterface[];
     guests:GuestsInterface[];
     startDateTime:string;
     endDateTime:string;
