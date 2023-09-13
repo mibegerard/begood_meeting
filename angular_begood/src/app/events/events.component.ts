@@ -63,7 +63,7 @@ export class EventsComponent implements OnInit {
       };
       reader.readAsText(file);
     } else {
-      console.error('Aucun fichier sélectionné.');
+      alert('Aucun fichier sélectionné.');
     }
   }
 
@@ -96,7 +96,6 @@ export class EventsComponent implements OnInit {
     alert('Importation réussie ! Nombre de lignes importées : ' + data.length )
     console.log(data);
   }
-  
-  
+
   
 }

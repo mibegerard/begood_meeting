@@ -31,9 +31,9 @@ export class EventsService {
         "startDateTime": "2023-09-20T10:00:00Z",
         "endDateTime": "2023-09-20T11:00:00Z",
         "channel": "Canal 1",
-        "location": "En ligne",
+        "location": "",
         "description": "Réunion de planification du projet",
-        "teamsLink": "lien1"
+        "teamsLink": ""
       },
       {
         "subject": "Présentation client",

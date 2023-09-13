@@ -1,39 +1,71 @@
-<button (click)="exportToCSV()">Exporter au format CSV</button>
+<div class="flex justify-end items-end m-3">
+  <div class="flex space-x-4">
+    <input
+      class="file-input file-input-primary w-full max-w-xs"
+      type="file"
+      id="csvFileInput"
+      accept=".csv"
+    />
 
-<input type="file" id="csvFileInput" accept=".csv" />
-<button (click)="importCSV()">Importer CSV</button>
+    <button class="btn btn-primary" (click)="importCSV()">
+      Importer au format CSV
+    </button>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <td>Evenement</td>
-      <td>Organisateur</td>
-      <td>Invités</td>
-      <td>Date et heure de début</td>
-      <td>Date et heure de fin</td>
-      <td>Canal</td>
-      <td>Lieu</td>
-      <td>Description</td>
-      <td>Lien teams</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let event of events">
-      <td>{{ event.subject }}</td>
-      <td>{{ event.organizer[0].name }} ({{ event.organizer[0].email }})</td>
-      <td>
-        <ul>
-          <li *ngFor="let guest of event.guests">
-            {{ guest.name }} ({{ guest.email }})
-          </li>
-        </ul>
-      </td>
-      <td>{{ event.startDateTime }}</td>
-      <td>{{ event.endDateTime }}</td>
-      <td>{{ event.channel }}</td>
-      <td>{{ event.location }}</td>
-      <td>{{ event.description }}</td>
-      <td><a href="{{ event.teamsLink }}" target="_blank">Lien teams</a></td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Evenement</td>
+        <td>Organisateur</td>
+        <td>Invités</td>
+        <td>Date et heure de début</td>
+        <td>Date et heure de fin</td>
+        <td>Canal</td>
+        <td>Lieu</td>
+        <td>Description</td>
+        <td>Lien teams</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td class="font-bold">{{ event.subject }}</td>
+        <td>
+          <ul>
+            <li class="font-bold">{{ event.organizer[0].name }}</li>
+            <li>{{ event.organizer[0].email }}</li>
+          </ul>
+        </td>
+        <td>
+          <ul *ngFor="let guest of event.guests">
+            <li class="font-bold">
+              {{ guest.name }}
+            </li>
+            <li>
+              {{ guest.email }}
+            </li>
+          </ul>
+        </td>
+        <td>{{ event.startDateTime }}</td>
+        <td>{{ event.endDateTime }}</td>
+        <td>{{ event.channel }}</td>
+        <td>{{ event.location }}</td>
+        <td>{{ event.description }}</td>
+        <td>
+          <a
+            href="{{ event.teamsLink }}"
+            target="_blank"
+            class="btn btn-ghost btn-md bg-"
+            *ngIf="event.location !== null && event.location.trim() !== ''"
+            >Lien teams</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="flex justify-end items-end m-3">
+  <button class="btn" (click)="exportToCSV()">Exporter au format CSV</button>
+</div>
