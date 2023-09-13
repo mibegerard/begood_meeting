@@ -20,7 +20,9 @@
       <td>{{ event.organizer[0].name }} ({{ event.organizer[0].email }})</td>
       <td>
         <ul>
-          <li *ngFor="let guest of event.guests">{{ guest.name }}</li>
+          <li *ngFor="let guest of event.guests">
+            {{ guest.name }} ({{ guest.email }})
+          </li>
         </ul>
       </td>
       <td>{{ event.startDateTime }}</td>

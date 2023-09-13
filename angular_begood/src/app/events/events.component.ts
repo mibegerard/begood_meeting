@@ -40,18 +40,16 @@ export class EventsComponent {
   }
 
   private convertToCSV(data: EventsInterface[]): string {
-    const delimiter = ';'; // Utilisez le délimiteur approprié (virgule, point-virgule, etc.)
-  
-    // Fonction pour échapper aux guillemets doubles dans les valeurs
+    const delimiter = ';';
     const escapeDoubleQuotes = (value: string) => {
       return value.replace(/"/g, '""');
     };
   
-    const header = Object.keys(data[0]).join(delimiter); // En-têtes CSV
+    const header = Object.keys(data[0]).join(delimiter);
   
     const rows = data.map(event => {
-      const guestNames = event.guests.map(guest => guest.name).join('; '); // Pour séparer les noms des invités par des points-virgules
-      return `"${escapeDoubleQuotes(event.subject)}"${delimiter}"${escapeDoubleQuotes(event.organizer[0].name)} (${escapeDoubleQuotes(event.organizer[0].email)})"${delimiter}"${escapeDoubleQuotes(guestNames)}"${delimiter}"${event.startDateTime}"${delimiter}"${event.endDateTime}"${delimiter}"${escapeDoubleQuotes(event.description)}"${delimiter}"${event.channel}"${delimiter}"${event.location}"${delimiter}"${event.teamsLink}"`;
+      const guestNames = event.guests.map(guest => guest.email).join('; '); // Pour séparer les noms des invités par des points-virgules
+      return `"${escapeDoubleQuotes(event.subject)}"${delimiter}"${escapeDoubleQuotes(event.organizer[0].email)} (${escapeDoubleQuotes(event.organizer[0].email)})"${delimiter}"${escapeDoubleQuotes(guestNames)}"${delimiter}"${event.startDateTime}"${delimiter}"${event.endDateTime}"${delimiter}"${escapeDoubleQuotes(event.description)}"${delimiter}"${event.channel}"${delimiter}"${event.location}"${delimiter}"${event.teamsLink}"`;
     });
   
     return `${header}\n${rows.join('\n')}`;
