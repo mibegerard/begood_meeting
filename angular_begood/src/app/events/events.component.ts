@@ -1,10 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import * as CSVParser from 'csv-parser';
-import * as FileSaver from 'file-saver';
-import { CSVImportComponent } from '../CSVimport/csvimport/csvimport.component';
 import { EventsInterface } from '../interfaces/events-interface';
-import { CSVImportService } from '../services/csvimport-service';
 import { EventsService } from '../services/events.service';
 
 
